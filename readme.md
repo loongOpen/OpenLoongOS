@@ -16,27 +16,31 @@ OpenLoong特点：
 
 OpenLoong包含：
 
-#### · [loong_utility:](https://github.com/tryingfly/loong_utility.git)
+#### · [loong_utility:](https://github.com/loongOpen/loong_utility.git)
 
   作为公共库，提供对c++的功能库拓展，与控制无关。包含常用算法、矩阵、打印、读取配置文件、计时、udp、log等功能。
 
-#### · [loong_ctrl_locomotion:](https://github.com/tryingfly/loong_ctrl_locomotion.git)
+#### · [loong_ctrl_locomotion:](https://github.com/loongOpen/loong_ctrl_locomotion.git)
 
   loco作为上层控制框架，由状态机调度运动控制算法（可控全身关节），生成跨环境的动态库。
 
-#### · [loong_base:](https://github.com/tryingfly/loong_base.git)
+#### · [loong_base:](https://github.com/loongOpen/loong_base.git)
 
   作为控制业务主程序，生成各个组件库调用的可执行文件。
 
-#### · [loong_sim:](https://github.com/tryingfly/loong_sim.git)
+#### · [loong_sim:](https://github.com/loongOpen/loong_sim.git)
 
   作为仿真环境。可独立验证loco、mani算法仿真，以及作为虚拟驱动底层联合loong_base作全链仿真。
 
-#### · [loong_sim_sdk_release:](https://github.com/tryingfly/loong_sim_sdk_release.git)
+#### · [loong_driver_sdk:](https://github.com/loongOpen/loong_driver_sdk.git)
+
+  传感驱动sdk，提供ethercat、485等协议的驱动器、imu、灵巧手等硬件抽象。
+
+#### · [loong_sim_sdk_release:](https://github.com/loongOpen/loong_sim_sdk_release.git)
 
   已编译好的全链仿真sdk，模拟实机运行流程，附python调用接口示例。
 
-#### · [loong_deploy:](https://github.com/tryingfly/loong_deployment.git)
+#### · [loong_deploy:](https://github.com/loongOpen/loong_deployment.git)
 
   已编译好的部署框架文件，拷贝到实机即可运行。
 
