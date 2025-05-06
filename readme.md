@@ -1,10 +1,10 @@
-Copyright 2025 国地共建人形机器人创新中心/人形机器人（上海）有限公司, https://www.OpenLoong.net/
+Copyright 2025 国地共建人形机器人创新中心/人形机器人（上海）有限公司, https://www.openloong.net/
 
 # 简介
 
 本仓库为OpenLoong控制框架各子组件目录。
 
-OpenLoong特点：
+OpenLoong控制框架特点：
 
 * **完整且独立**：除与内核绑定的IGH ethercat主站外，自集成全部运行依赖，无需任何繁琐的环境依赖配置即可跑起机器人，离线测试、仿真验证、实机运行，具备完整功能的机器人控制程序库
 * **干净而朴素**：免安装，免配环境，对系统零污染，ROS free，朴素c++实现，高性能通信与任务执行
@@ -14,7 +14,7 @@ OpenLoong特点：
 
 ![img](./img/框架.jpg)
 
-OpenLoong包含：
+OpenLoong控制框架包含：
 
 #### · [loong_utility:](https://github.com/loongOpen/loong_utility.git)
 
