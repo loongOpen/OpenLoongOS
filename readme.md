@@ -12,41 +12,45 @@ OpenLoong控制框架特点：
 
 # OpenLoong控制框架
 
-![img](./img/框架.jpg)
+![frame](img/框架.jpg)
 
-OpenLoong控制框架包含：
+### OpenLoong控制框架包含的仓库
 
-#### · [loong_utility:](https://github.com/loongOpen/loong_utility.git)
-
-  作为公共库，提供对c++的功能库拓展，与控制无关。包含常用算法、矩阵、打印、读取配置文件、计时、udp、log等功能。
-
-#### · [loong_ctrl_locomotion:](https://github.com/loongOpen/loong_ctrl_locomotion.git)
-
-  loco作为上层控制框架，由状态机调度运动控制算法（可控全身关节），生成跨环境的动态库。
-
-#### · [loong_base:](https://github.com/loongOpen/loong_base.git)
-
-  作为控制业务主程序，生成各个组件库调用的可执行文件。
-
-#### · [loong_sim:](https://github.com/loongOpen/loong_sim.git)
-
-  作为仿真环境。可独立验证loco、mani算法仿真，以及作为虚拟驱动底层联合loong_base作全链仿真。
-
-#### · [loong_driver_sdk:](https://github.com/loongOpen/loong_driver_sdk.git)
-
-  传感驱动sdk，提供ethercat、485等协议的驱动器、imu、灵巧手等硬件抽象。
-
-#### · [loong_sim_sdk_release:](https://github.com/loongOpen/loong_sim_sdk_release.git)
-
-  已编译好的全链仿真sdk，模拟实机运行流程，附python调用接口示例。
-
-#### · [loong_deploy:](https://github.com/loongOpen/loong_deployment.git)
-
-  已编译好的部署框架文件，拷贝到实机即可运行。
+| 库名称                                                                                 | 生成的动态库/可执行文件                                                                                   | 动态库/可执行文件放置                                                                                                                                                                    | 用途描述                                                                                   |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **[loong_utility](https://github.com/loongOpen/loong_utility.git)**                 | 无                                                                                                        | 无（基础库，被其他模块直接链接）                                                                                                                                                         | 提供C++基础功能库（算法/矩阵/日志/UDP等）                                                  |
+| **[loong_driver_sdk](https://github.com/loongOpen/loong_driver_sdk.git)**           | **动态库**:<br>`libloong_driver_sdk_x64(a64).so`                                                     | **动态库**:<br>`loong_base/module/loong_driver_sdk` <br>`loong_deployment/module/loong_driver_sdk`                                                                                     | 传感驱动sdk（EtherCAT/485/IMU/灵巧手等硬件接口）                                           |
+| **[loong_ctrl_locomotion](https://github.com/loongOpen/loong_ctrl_locomotion.git)** | **动态库**:<br>`libnabo_x64(a64).so`                                                                  | **动态库**:<br>`loong_base/module/nabo_locomotion` <br>`loong_sim/module/nabo_locomotion` <br>`loong_sim_sdk_release/module/nabo_locomotion` <br>`loong_deployment/module/nabo_locomotion` | 上层运动控制框架（状态机调度+全身关节控制算法）                                            |
+| **[loong_base](https://github.com/loongOpen/loong_base.git)**                       | **可执行文件**:<br>`loong_driver_x64(a64)` <br>`loong_interface_x64(a64)` <br>`loong_locomotion_x64(a64)` | **可执行文件**:<br>`loong_sim_sdk_release/bin` <br>`loong_deployment/bin`                                                                                                              | 作为控制业务主程序，生成各个组件库调用的可执行文件。                                       |
+| **[loong_sim](https://github.com/loongOpen/loong_sim.git)**                         | **可执行文件**:<br>`loong_share_sim_x64(a64)`                                                         | **可执行文件**:<br>`loong_sim_sdk_release/bin`                                                                                                                                       | 作为仿真环境。可独立验证loco、mani算法仿真，以及作为虚拟驱动底层联合loong_base作全链仿真。 |
+| **[loong_sim_sdk_release](https://github.com/loongOpen/loong_sim_sdk_release.git)** | 无                                                                                                        | 无（已编译好的全链仿真sdk）                                                                                                                                                              | 已编译好的全链仿真sdk，模拟实机运行流程，附python调用接口示例。                            |
+| **[loong_deploy](https://github.com/loongOpen/loong_deployment.git)**               | 无                                                                                                        | 无（已编译好的部署框架文件）                                                                                                                                                             | 已编译好的部署框架文件，拷贝到实机即可运行。                                               |
 
 ### 以上仓库按需下载即可，无需全部。
 
-各链接均为独立仓库。若使用vscode同时打开会导致智能补全功能失效。
+各链接均为独立仓库。若使用vscode同时打开会导致智能补全功能失效，各个仓库独立打开即可。
+
+# 编译及运行
+
+## 编译
+
+在各个库的tools文件夹内提供了快捷脚本完成常用操作，执行其中make.sh即可完成编译（根据提示输入参数，以匹配不同架构或用途），编译成功后会各自生成nabo_output目录，保存了当前编译后的动态库/可执行文件。
+当以上仓库位于同一目录层级时，执行make.sh编译成功后可自动拷贝生成文件至被依赖的目标处。或亦可按上表依赖关系手动拷贝。
+
+## 算法仿真运行（loong_sim）
+
+1.在loong_sim/tools下运行算法仿真脚本。
+
+```bash
+./run_mujoco_loco.sh
+```
+
+2.按键wasd控制前后左右，q键控制踏步，e键停止踏步。
+![frame](assets/loong_sim.png)
+
+## 全链仿真运行（loong_sim_sdk_release）
+
+详见loong_sim_sdk_release/readme.md
 
 ### 另：
 
